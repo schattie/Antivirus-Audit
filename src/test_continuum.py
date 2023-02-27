@@ -12,8 +12,8 @@ class ContinuumTest(unittest.TestCase):
         self.continuum.load_workstation_workbook_and_sheet()
         self.assertIn("REQ00000000000001192888", self.continuum.sheet.title)
 
-    def test_excel_workbook_column_deletion(self): #creates a excel file in root directory. Examine this for test results. Should only have one column. 
+    def test_excel_workbook_column_deletion(self): #Test if columns are deleted.  
         self.continuum.set_file_path("Z:/Antivirus-Audit/continuum-workstations/2023.xlsx")
         self.continuum.load_workstation_workbook_and_sheet()
         self.continuum.remove_cells_from_workbook()
-        self.continuum.workstation_workbook.save(filename="test.xlsx") 
+        self.assertEqual(1, self.continuum.sheet.max_column)
