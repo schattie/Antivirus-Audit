@@ -1,33 +1,31 @@
 from pathlib import Path
-import requests
-from decouple import config
+from openpyxl import load_workbook
 
 class Sophos:
-    client_id = None 
-    client_secret = None
-    api_response = None
-    api_session = requests.Session()
+    file_string = None  #file path where excel sheet is stroed
+    file_path = None #This is the converted string value to path 
+    workstation_workbook = None #point this to path where file is stored
+    sheet = None #Should only be one sheet per excel, program auto selects first sheet. Used to manipulate sheet values. Mainly used to delete columns
 
-    def set_client_id(self):
-        self.client_id = config('SOPHOS_CLIENT_ID')
+    def set_file_path(self, file_string): 
+        self.file_string = file_string
+        self.file_path = Path(self.file_string)
 
-    def set_client_secret(self):
-        self.client_secret = config('SOPHOS_CLIENT_SECRET')
-    
-    def get_client_id(self):
-        return self.client_id
-    
-    def get_client_secret(self):
-        return self.client_secret
-    
-    def authenticate_with_api(self, client_id, client_secret, url):
-        d = {
-            'grant_type': 'client_credentials',
-            'client_id': client_id,
-            'client_secret': client_secret,
-            'scope': 'token'
-        }
-        request_token = requests.post(url, auth=(client_id, client_secret), data=d)
-        json_token = request_token.json()
-        headers = {'Authorization': f"Bearer {json_token['access_token']}"}
-        return headers
+    def get_file_path(self): 
+        return self.file_path
+
+    def get_file_string(self):
+        return self.file_string
+        
+    def load_workstation_workbook_and_sheet(self): #loads the workbook up and sets the first sheet to its working sheet
+        self.workstation_workbook = load_workbook(filename=self.file_path)
+        self.sheet = self.workstation_workbook.active
+
+    def remove_cells_from_workbook(self): #used to remove all columns other than pc name / site
+        self.sheet.delete_cols(1, 1)
+        self.sheet.delete_cols(3, 24)
+
+        self.sheet.delete_rows(1, 7)
+
+    def save_workbook(self):
+        self.workstation_workbook.save("Sophos.xlsx")

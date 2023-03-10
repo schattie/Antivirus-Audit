@@ -130,4 +130,7 @@ dmypy.json
 
 #Files with valuable information
 continuum-workstations/
-keys.env
+sophos-workstations/
+Sophos.xlsx
+Continuum.xlsx
+sophos-script/

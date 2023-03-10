@@ -23,4 +23,10 @@ class Continuum:
 
     def remove_cells_from_workbook(self): #used to remove all columns other than pc name
         self.sheet.delete_cols(1, 2)
-        self.sheet.delete_cols(2, 13)
+        self.sheet.delete_cols(2, 2)
+        self.sheet.delete_cols(3, 9)
+
+        self.sheet.delete_rows(1, 1)
+
+    def save_workbook(self):
+        self.workstation_workbook.save("Continuum.xlsx")
