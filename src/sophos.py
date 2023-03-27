@@ -28,4 +28,4 @@ class Sophos:
         self.sheet.delete_rows(1, 7)
 
     def save_workbook(self):
-        self.workstation_workbook.save("Sophos.xlsx")
+        self.workstation_workbook.save("src/Sophos.xlsx")

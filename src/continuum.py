@@ -29,4 +29,4 @@ class Continuum:
         self.sheet.delete_rows(1, 1)
 
     def save_workbook(self):
-        self.workstation_workbook.save("Continuum.xlsx")
+        self.workstation_workbook.save("src/Continuum.xlsx")

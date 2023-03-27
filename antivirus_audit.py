@@ -1,10 +1,11 @@
 from src.sophos import Sophos
 from src.continuum import Continuum
-from decouple import config
+from src.comparison import Comparison
 
 def main():
     sophos = Sophos()
     continuum = Continuum()
+    comparison = Comparison()
 
     sophos_file_path = None
     continuum_file_path = None
@@ -24,8 +25,10 @@ def main():
     continuum.remove_cells_from_workbook()
     sophos.remove_cells_from_workbook()
 
-    continuum.save_workbook()
-    sophos.save_workbook()
+    comparison.load_workbooks(sophos.workstation_workbook, continuum.workstation_workbook)
+
+    comparison.compare_sophos_to_continuum()
+    
 
 if __name__ == "__main__":
     main()
