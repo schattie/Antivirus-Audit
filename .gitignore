@@ -128,7 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-#Files with valuable information
+#VI
 continuum-workstations/
 sophos-workstations/
 Sophos.xlsx
